@@ -1,0 +1,151 @@
+<div class="jumbotron text-center bg-purple br-0">
+    <div class="container">
+        <h1 class="jumbotron-heading font-green">GOOP Upload</h1>
+        <p class="lead font-white">
+            Here you can upload your OWL GOOP files. Select the option:
+        </p>
+        <p>
+            <a class="btn btn-secondary my-2 bg-green border-color-green font-white mr-2"
+                (click)="isComplexCollapsed = !isComplexCollapsed" [attr.aria-expanded]="!isComplexCollapsed"
+                aria-controls="collapseExample">
+                Insert GOOP related to Complex Goal
+            </a>
+            <a class="btn btn-secondary my-2 bg-green border-color-green font-white"
+                (click)="isAtomicCollapsed = !isAtomicCollapsed" [attr.aria-expanded]="!isAtomicCollapsed"
+                aria-controls="collapseExample">
+                Insert GOOP related to Atomic Goal
+            </a>
+        </p>
+    </div>
+</div>
+<div class="container">
+    <div class="accordion-group">
+        <div class="mb-10" id="collapseExample" [ngbCollapse]="isComplexCollapsed">
+            <div class="card card-body">
+                <div class="card-header mb-2">
+                    <h5 class="card-title">Complex Goal</h5>
+                </div>
+                <form class="needs-validation">
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label class="font-weight-bold" for="name-field">Name:</label>
+                            <input type="name" class="form-control" id="name-field" placeholder="Your name">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="font-weight-bold" for="email-field">Email:</label>
+                            <input type="email" class="form-control" id="email-field" placeholder="Email">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label class="font-weight-bold" for="organization-field">Organization Name:</label>
+                            <input type="text" class="form-control" id="organization-field"
+                                placeholder="Federal University of ...">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="font-weight-bold" for="role-field">Role:</label>
+                            <input type="text" class="form-control" id="role-field"
+                                placeholder="Researcher, Ontology Engineer, Student">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label class="font-weight-bold" for="goalName">Goal:</label>
+                            <div class="input-group mb-4">
+                                <input type="text" class="form-control" id="goalName" placeholder="Goal Name"
+                                    aria-label="Search for goals" aria-describedby="button-addon2">
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="font-weight-bold" for="goalDecomposition">Goal Decomposition Type:</label>
+                            <select class="form-control" id="goalDecomposition">
+                                <option>AND decomposition</option>
+                                <option>OR decomposition</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label class="font-weight-bold" for="queryValue">Search goals to add:</label>
+                            <div class="input-group mb-4">
+                                <input type="text" class="form-control" id="queryValue" placeholder="Search for goals"
+                                    aria-label="Search for goals" aria-describedby="button-addon2">
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-success" type="button"
+                                        id="queryRunComplex">Search</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <div id="col-dep">
+                                <label class="font-weight-bold">Selected goals:</label>
+                                <strong></strong>
+                                <div class="list-group" id="complex-list-added" role="tablist">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list-group col-md-4" id="complex-list-to-add" style="margin-top: -35px;">
+                    </div>
+                    <div class="text-center mt-50">
+                        <p>
+                            <label class="btn btn-outline-dark mr-2 mt-1" for="goop-field">Select
+                                Fragment</label>
+                            <input class="d-none" type="file" id="goop-field">
+                            <button type="submit" class="btn btn-outline-success" id="complex-upload">Upload</button>
+                        </p>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div id="collapseExample" [ngbCollapse]="isAtomicCollapsed">
+            <div class="card card-body">
+                <div class="card-header mb-2">
+                    <h5 class="card-title">Atomic Goal</h5>
+                </div>
+                <form>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label class="font-weight-bold" for="atomic-name-field">Name:</label>
+                            <input type="name" class="form-control" id="atomic-name-field" placeholder="Your name">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="font-weight-bold" for="atomic-email-field">Email:</label>
+                            <input type="email" class="form-control" id="atomic-email-field" placeholder="Email">
+                        </div>
+                    </div>
+                    <div class="form-row">
+
+                        <div class="form-group col-md-6">
+                            <label class="font-weight-bold" for="atomic-organization-field">Organization Name:</label>
+                            <input type="text" class="form-control" id="atomic-organization-field"
+                                placeholder="Federal University of ...">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="font-weight-bold" for="atomic-role-field">Role:</label>
+                            <input type="text" class="form-control" id="atomic-role-field"
+                                placeholder="Researcher, Ontology Engineer, Student">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            <label class="font-weight-bold" for="atomic-queryValue">Goal:</label>
+                            <div class="input-group mb-4">
+                                <input type="text" class="form-control" id="atomic-queryValue" placeholder="Goal Name"
+                                    aria-label="Search for goals" aria-describedby="button-addon2">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center mt-50">
+                        <p>
+                            <label class="btn btn-outline-dark mr-2 mt-1" for="goop-field">Select
+                                Fragment</label>
+                            <input class="d-none" type="file" id="atomic-goop-field">
+                            <button type="submit" class="btn btn-outline-success" id="atomic-upload">Upload</button>
+                        </p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
