@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 
-import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
-
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { SearchService } from '../controller/search.service';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  selector: 'app-search',
+  templateUrl: './search.component.html',
+  styleUrls: ['./search.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class SearchComponent implements OnInit {
 
   closeResult: string;
   isValid = false;
@@ -17,33 +17,24 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private modalService: NgbModal,
+    private searchService: SearchService,
+
     ) { }
 
   ngOnInit() {
 
   }
 
-  /*
-  search(query:string) {
-    console.log(query);
-    this.apiService.searchGoop(query).subscribe((data)=>{
+  
+  search2() {
+    console.log("click");
+    this.searchService.searchGoop().subscribe((data)=>{
       console.log(data);
       this.result = data;
     });
   }
-  */
-
-  open(content) {
-    console.log("clickou no open");
-  }
-
-  search() {
-    
-  }
-
-
   
-  /*
+ 
   search() {
     this.result = [
       {
@@ -115,6 +106,6 @@ export class HomeComponent implements OnInit {
     } else {
       return  `with: ${reason}`;
     }
-  }*/
+  }
 
 }
