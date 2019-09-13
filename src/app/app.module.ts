@@ -17,11 +17,11 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
 import { AboutComponent } from './pages/about/about.component';
 import { Error404Component } from './pages/error404/error404.component';
-import { UploadComponent } from './pages/upload/upload.component';
-import { EndpointComponent } from './pages/endpoint/endpoint.component';
 
 /* Import dos modulos */
 import { SearchComponent } from './modules/search/view/search.component';
+import { EndpointComponent} from './modules/endpoint/view/endpoint.component';
+import { UploadComponent } from './modules/upload/view/upload.component';
 
 import { HttpClientModule } from '@angular/common/http';
 import { SearchService } from './modules/search/controller/search.service';
