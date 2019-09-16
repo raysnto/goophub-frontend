@@ -9,7 +9,13 @@ export class SearchService {
 
   ) { }
 
-  searchGoop() {
-    return this.http.get('http://localhost:8080/tool/query?query="man"');
+  baseURL = "http://localhost:8080/search"
+
+  searchGoop(query: string) {
+    return this.http.get(`${this.baseURL}/query?query=${query}`);
+  }
+
+  searchEntities(query: string) {
+    return this.http.get(`${this.baseURL}/querygoal?query=${query}`);
   }
 }

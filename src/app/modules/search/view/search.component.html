@@ -1,24 +1,23 @@
 <div class="container">
     <h1 class="display-1 text-center font-green mb-10 mt-20">GoopHub</h1>
     <form class="form-group">
-        <input class="form-control" type="search" placeholder="Search for Goops..." name="query">
+        <input class="form-control" [(ngModel)]="query" type="search" placeholder="Search for Goops..." name="query">
         <div class="search-buttons text-center mt-2" id="search-buttons">
-            <button type="button" class="btn btn-outline-success mr-3" (click)="search2()">Search</button>
+            <button type="button" class="btn btn-outline-success mr-3" (click)="search()">Search</button>
             <a routerLink="/endpoint" class="btn btn-outline-dark">Advanced Search</a>
         </div>
     </form>
 
     <div *ngIf="isValid" class="card-deck mb-10 mt-50">
-        <div *ngFor="let item of result">
+        <div *ngFor="let item of result.goops">
             <div class="card mb-3 max-w-18 shadow p-3 mb-5 bg-white rounded goop-card">
-                <div class="card-header bg-white">{{ item.type }}</div>
-                <div class="card-body text-dark">
+                <div class="card-header bg-white text-center">{{ item.type }}</div>
+                <div class="card-body text-dark text-center">
                     <h5 class="card-title">{{ item.name }}</h5>
-                    <p class="card-text">{{ item.classes }}</p>
                 </div>
                 <div class="btn-group-sm text-center mb-2">
                     <button type="button" class="btn btn-sm btn-outline-success mr-2"
-                        (click)="open(content)">Show</button>
+                        (click)="open(content, item.iri)">Show</button>
                     <button type="button" class="btn btn-sm btn-outline-success">Download</button>
                 </div>
             </div>
@@ -34,19 +33,7 @@
             </button>
         </div>
         <div class="modal-body">
-            <form>
-                <div class="form-group">
-                    <label for="dateOfBirth">Date of birth</label>
-                    <div class="input-group">
-                        <input id="dateOfBirth" class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker
-                            #dp="ngbDatepicker">
-                        <div class="input-group-append">
-                            <button class="btn btn-outline-secondary calendar" (click)="dp.toggle()"
-                                type="button"></button>
-                        </div>
-                    </div>
-                </div>
-            </form>
+
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>

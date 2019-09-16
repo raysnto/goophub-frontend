@@ -25,26 +25,26 @@
                 <div class="card-header mb-2">
                     <h5 class="card-title">Complex Goal</h5>
                 </div>
-                <form class="needs-validation">
+                <form>
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label class="font-weight-bold" for="name-field">Name:</label>
-                            <input type="name" class="form-control" id="name-field" placeholder="Your name">
+                            <input type="name" name="complexName" [(ngModel)]="complexName" class="form-control" id="name-field" placeholder="Your name">
                         </div>
                         <div class="form-group col-md-6">
                             <label class="font-weight-bold" for="email-field">Email:</label>
-                            <input type="email" class="form-control" id="email-field" placeholder="Email">
+                            <input type="email" name="complexEmail" [(ngModel)]="complexEmail" class="form-control" id="email-field" placeholder="Email">
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label class="font-weight-bold" for="organization-field">Organization Name:</label>
-                            <input type="text" class="form-control" id="organization-field"
+                            <input type="text" name="complexOrganization" [(ngModel)]="complexOrganization" class="form-control" id="organization-field"
                                 placeholder="Federal University of ...">
                         </div>
                         <div class="form-group col-md-6">
                             <label class="font-weight-bold" for="role-field">Role:</label>
-                            <input type="text" class="form-control" id="role-field"
+                            <input type="text" name="complexRole" [(ngModel)]="complexRole" class="form-control" id="role-field"
                                 placeholder="Researcher, Ontology Engineer, Student">
                         </div>
                     </div>
@@ -52,13 +52,13 @@
                         <div class="form-group col-md-6">
                             <label class="font-weight-bold" for="goalName">Goal:</label>
                             <div class="input-group mb-4">
-                                <input type="text" class="form-control" id="goalName" placeholder="Goal Name"
+                                <input type="text" name="complexGoal" [(ngModel)]="complexGoal" class="form-control" id="goalName" placeholder="Goal Name"
                                     aria-label="Search for goals" aria-describedby="button-addon2">
                             </div>
                         </div>
                         <div class="form-group col-md-6">
                             <label class="font-weight-bold" for="goalDecomposition">Goal Decomposition Type:</label>
-                            <select class="form-control" id="goalDecomposition">
+                            <select name="complexDecomposition" [(ngModel)]="complexDecomposition" class="form-control" id="goalDecomposition">
                                 <option>AND decomposition</option>
                                 <option>OR decomposition</option>
                             </select>
@@ -71,8 +71,7 @@
                                 <input type="text" class="form-control" id="queryValue" placeholder="Search for goals"
                                     aria-label="Search for goals" aria-describedby="button-addon2">
                                 <div class="input-group-append">
-                                    <button class="btn btn-outline-success" type="button"
-                                        id="queryRunComplex">Search</button>
+                                    <button class="btn btn-outline-success" type="button" (click)="search()" >Search</button>
                                 </div>
                             </div>
                         </div>
@@ -89,10 +88,8 @@
                     </div>
                     <div class="text-center mt-50">
                         <p>
-                            <label class="btn btn-outline-dark mr-2 mt-1" for="goop-field">Select
-                                Fragment</label>
-                            <input class="d-none" type="file" id="goop-field">
-                            <button type="submit" class="btn btn-outline-success" id="complex-upload">Upload</button>
+                            <input (change)="onComplexFileChange($event)" type="file" id="complexFileUpload">
+                            <button type="submit" class="btn btn-outline-success" (click)="complexUpload()">Upload</button>
                         </p>
                     </div>
                 </form>
@@ -107,23 +104,23 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label class="font-weight-bold" for="atomic-name-field">Name:</label>
-                            <input type="name" class="form-control" id="atomic-name-field" placeholder="Your name">
+                            <input type="name" name="atomicName" [(ngModel)]="atomicName" class="form-control" id="atomic-name-field" placeholder="Your name">
                         </div>
                         <div class="form-group col-md-6">
                             <label class="font-weight-bold" for="atomic-email-field">Email:</label>
-                            <input type="email" class="form-control" id="atomic-email-field" placeholder="Email">
+                            <input type="email" name="atomicEmail" [(ngModel)]="atomicEmail" class="form-control" id="atomic-email-field" placeholder="Email">
                         </div>
                     </div>
                     <div class="form-row">
 
                         <div class="form-group col-md-6">
                             <label class="font-weight-bold" for="atomic-organization-field">Organization Name:</label>
-                            <input type="text" class="form-control" id="atomic-organization-field"
+                            <input type="text" name="atomicOrganization" [(ngModel)]="atomicOrganization" class="form-control" id="atomic-organization-field"
                                 placeholder="Federal University of ...">
                         </div>
                         <div class="form-group col-md-6">
                             <label class="font-weight-bold" for="atomic-role-field">Role:</label>
-                            <input type="text" class="form-control" id="atomic-role-field"
+                            <input type="text" name="atomicRole" [(ngModel)]="atomicRole" class="form-control" id="atomic-role-field"
                                 placeholder="Researcher, Ontology Engineer, Student">
                         </div>
                     </div>
@@ -131,17 +128,15 @@
                         <div class="form-group col-md-12">
                             <label class="font-weight-bold" for="atomic-queryValue">Goal:</label>
                             <div class="input-group mb-4">
-                                <input type="text" class="form-control" id="atomic-queryValue" placeholder="Goal Name"
+                                <input type="text" name="atomicGoal" [(ngModel)]="atomicGoal" class="form-control" id="atomic-queryValue" placeholder="Goal Name"
                                     aria-label="Search for goals" aria-describedby="button-addon2">
                             </div>
                         </div>
                     </div>
                     <div class="text-center mt-50">
                         <p>
-                            <label class="btn btn-outline-dark mr-2 mt-1" for="goop-field">Select
-                                Fragment</label>
-                            <input class="d-none" type="file" id="atomic-goop-field">
-                            <button type="submit" class="btn btn-outline-success" id="atomic-upload">Upload</button>
+                            <input (change)="onAtomicFileChange($event)" type="file" id="atomicFileUpload">
+                            <button type="submit" class="btn btn-outline-success" (click)="atomicUpload()" id="atomic-upload">Upload</button>
                         </p>
                     </div>
                 </form>

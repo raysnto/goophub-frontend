@@ -13,6 +13,7 @@ export class SearchComponent implements OnInit {
   closeResult: string;
   isValid = false;
   result: any;
+  goopDetails: any;
   query:string;
 
   constructor(
@@ -26,71 +27,21 @@ export class SearchComponent implements OnInit {
   }
 
   
-  search2() {
-    console.log("click");
-    this.searchService.searchGoop().subscribe((data)=>{
-      console.log(data);
+  search() {
+    console.log(this.query);
+    this.searchService.searchGoop(this.query).subscribe((data)=>{
       this.result = data;
+      console.log(this.result);
+      this.isValid = true;
     });
   }
-  
- 
-  search() {
-    this.result = [
-      {
-        name: "Describe Date",
-        type: "Complex Goal",
-        classes: [ 'time', 'date', 'hour', 'day', 'month' ],
-        properties: [ 'has', 'hasDate', 'hasDay' ]
-      },
-      {
-        name: "Describe Location",
-        type: "Atomic Goal",
-        classes: [ 'time', 'date', 'hour', 'day', 'month' ],
-        properties: [ 'has', 'hasDate', 'hasDay' ]
-      },
-      {
-        name: "Describe Date",
-        type: "Complex Goal",
-        classes: [ 'time', 'date', 'hour', 'day', 'month' ],
-        properties: [ 'has', 'hasDate', 'hasDay' ]
-      },
-      {
-        name: "Describe Location",
-        type: "Atomic Goal",
-        classes: [ 'time', 'date', 'hour', 'day', 'month' ],
-        properties: [ 'has', 'hasDate', 'hasDay' ]
-      },
-      {
-        name: "Describe Date",
-        type: "Complex Goal",
-        classes: [ 'time', 'date', 'hour', 'day', 'month' ],
-        properties: [ 'has', 'hasDate', 'hasDay' ]
-      },
-      {
-        name: "Describe Location",
-        type: "Atomic Goal",
-        classes: [ 'time', 'date', 'hour', 'day', 'month' ],
-        properties: [ 'has', 'hasDate', 'hasDay' ]
-      },
-      {
-        name: "Describe Date",
-        type: "Complex Goal",
-        classes: [ 'time', 'date', 'hour', 'day', 'month' ],
-        properties: [ 'has', 'hasDate', 'hasDay' ]
-      },
-      {
-        name: "Describe Location",
-        type: "Atomic Goal",
-        classes: [ 'time', 'date', 'hour', 'day', 'month' ],
-        properties: [ 'has', 'hasDate', 'hasDay' ]
-      },
-    ]
-    this.isValid = true;
-    console.log(this.result);
-  }
 
-  open(content) {
+  open(content, iri) {
+    iri = iri.replace("#", "%23");
+    this.searchService.searchEntities(iri).subscribe(result => {
+      console.log(result);
+      this.goopDetails = result;
+    })
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
