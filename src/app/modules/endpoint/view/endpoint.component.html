@@ -11,16 +11,17 @@
 <div class="container">
     <div class="panel panel-default">
         <div class="panel-body">
-            <form id="queryForm">
-                <ngx-codemirror class="border" [options]="{
-                      lineNumbers: true,
-                      theme: 'zig',
-                      mode: 'sparql'
-                    }"></ngx-codemirror>
-                <br>
-                <button class="btn btn-outline-success" (click)="search()" type="button">Search</button>
-                <button class="btn btn-outline-dark float-right" (click)="clear()" type="button">Clear</button>
-            </form>
+            <ngx-codemirror class="border"
+            [(ngModel)]="query" 
+            [options]="{
+                    lineNumbers: true,
+                    theme: 'zig',
+                    mode: 'sparql'
+                }">
+            </ngx-codemirror>
+            <br>
+            <button class="btn btn-outline-success" (click)="search()" type="button">Search</button>
+            <button class="btn btn-outline-dark float-right" (click)="clear()" type="button">Clear</button>
         </div>
     </div>
     <div *ngIf="isValid" class="panel panel-default mt-4">

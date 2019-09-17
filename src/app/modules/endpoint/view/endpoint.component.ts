@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import 'codemirror/mode/javascript/javascript';
 import 'codemirror/mode/sparql/sparql'
+import { EndpointService } from '../controller/endpoint.service';
 
 @Component({
   selector: 'app-endpoint',
@@ -10,7 +11,9 @@ import 'codemirror/mode/sparql/sparql'
 })
 export class EndpointComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private endpointService : EndpointService
+  ) { }
 
   result: any;
   result2: any = {
@@ -19,67 +22,21 @@ export class EndpointComponent implements OnInit {
   };
   queryKeys = Object.keys;
   isValid: boolean;
+  query: string;
 
   ngOnInit() {
   }
 
   search() {
-    this.isValid = true;
-    this.result = [
-      {
-        name: "Describe Date",
-        type: "Complex Goal",
-        classes: [ 'time', 'date', 'hour', 'day', 'month' ],
-        properties: [ 'has', 'hasDate', 'hasDay' ]
-      },
-      {
-        name: "Describe Location",
-        type: "Atomic Goal",
-        classes: [ 'time', 'date', 'hour', 'day', 'month' ],
-        properties: [ 'has', 'hasDate', 'hasDay' ]
-      },
-      {
-        name: "Describe Date",
-        type: "Complex Goal",
-        classes: [ 'time', 'date', 'hour', 'day', 'month' ],
-        properties: [ 'has', 'hasDate', 'hasDay' ]
-      },
-      {
-        name: "Describe Location",
-        type: "Atomic Goal",
-        classes: [ 'time', 'date', 'hour', 'day', 'month' ],
-        properties: [ 'has', 'hasDate', 'hasDay' ]
-      },
-      {
-        name: "Describe Date",
-        type: "Complex Goal",
-        classes: [ 'time', 'date', 'hour', 'day', 'month' ],
-        properties: [ 'has', 'hasDate', 'hasDay' ]
-      },
-      {
-        name: "Describe Location",
-        type: "Atomic Goal",
-        classes: [ 'time', 'date', 'hour', 'day', 'month' ],
-        properties: [ 'has', 'hasDate', 'hasDay' ]
-      },
-      {
-        name: "Describe Date",
-        type: "Complex Goal",
-        classes: [ 'time', 'date', 'hour', 'day', 'month' ],
-        properties: [ 'has', 'hasDate', 'hasDay' ]
-      },
-      {
-        name: "Describe Location",
-        type: "Atomic Goal",
-        classes: [ 'time', 'date', 'hour', 'day', 'month' ],
-        properties: [ 'has', 'hasDate', 'hasDay' ]
-      },
-    ]
-    this.isValid = true;
-    console.log(this.result);
+    console.log(this.query);
+    this.endpointService.search(this.query).subscribe( data => {
+      this.result = data;
+      this.isValid = true;
+    });
   }
 
   clear() {
+    this.query = "";
     this.result = {};
     this.isValid = false;
   }
