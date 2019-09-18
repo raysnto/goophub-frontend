@@ -9,7 +9,7 @@ export class SearchService {
 
   ) { }
 
-  baseURL = "http://localhost:8080/search"
+  baseURL = "http://200.137.66.31:8080/search"
 
   searchGoop(query: string) {
     let params = new HttpParams().set('query', encodeURIComponent(query));

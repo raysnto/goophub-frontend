@@ -10,7 +10,7 @@ export class EndpointService {
     private http: HttpClient,
   ) { }
 
-  baseURL = "http://localhost:8080/search/sparql"
+  baseURL = "http://200.137.66.31:8080/search/sparql"
 
   search(query: string) {
     let params = new HttpParams().set('query', encodeURIComponent(query));

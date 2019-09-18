@@ -10,7 +10,7 @@ export class UploadService {
     private http: HttpClient,
   ) { }
 
-  baseURL = "http://localhost:8080/upload"
+  baseURL = "http://200.137.66.31:8080/upload"
 
   atomicUpload(formData: FormData) {
     let headers = new HttpHeaders();
