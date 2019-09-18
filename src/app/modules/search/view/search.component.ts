@@ -1,3 +1,4 @@
+import {Router} from "@angular/router"
 import { Component, OnInit } from '@angular/core';
 
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
@@ -19,11 +20,17 @@ export class SearchComponent implements OnInit {
   constructor(
     private modalService: NgbModal,
     private searchService: SearchService,
+    private router: Router
 
     ) { }
 
   ngOnInit() {
 
+  }
+
+  advancedSearch() {
+    console.log("redirecionando");
+    this.router.navigate(['/endpoint'])
   }
 
   
