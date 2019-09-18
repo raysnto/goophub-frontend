@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 @Injectable()
 export class SearchService {
@@ -12,10 +12,12 @@ export class SearchService {
   baseURL = "http://localhost:8080/search"
 
   searchGoop(query: string) {
-    return this.http.get(`${this.baseURL}/query?query=${query}`);
+    let params = new HttpParams().set('query', encodeURIComponent(query));
+    return this.http.get(`${this.baseURL}/query`, { params: params });
   }
 
   searchEntities(query: string) {
-    return this.http.get(`${this.baseURL}/querygoal?query=${query}`);
+    let params = new HttpParams().set('query', encodeURIComponent(query));
+    return this.http.get(`${this.baseURL}/querygoal`, { params: params });
   }
 }

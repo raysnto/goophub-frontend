@@ -13,6 +13,7 @@ export class SearchComponent implements OnInit {
 
   closeResult: string;
   isValid = false;
+  emptyQuery = false;
   result: any;
   goopDetails: any;
   query:string;
@@ -33,21 +34,23 @@ export class SearchComponent implements OnInit {
     this.router.navigate(['/endpoint'])
   }
 
+  closeAlert() {
+    this.emptyQuery = false;
+  }
   
   search() {
     console.log(this.query);
     this.searchService.searchGoop(this.query).subscribe((data)=>{
       this.result = data;
       console.log(this.result);
-      this.isValid = true;
+      this.result.goops.length > 0 ? this.isValid = true : this.emptyQuery = true;
     });
   }
 
   open(content, iri) {
-    iri = iri.replace("#", "%23");
     this.searchService.searchEntities(iri).subscribe(result => {
-      console.log(result);
       this.goopDetails = result;
+      console.log(result);
     })
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
