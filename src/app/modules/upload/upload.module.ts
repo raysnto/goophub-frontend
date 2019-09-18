@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { UploadComponent } from './view/upload.component';
 import { UploadService } from './controller/upload.service';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -12,7 +13,8 @@ import { UploadService } from './controller/upload.service';
   ],
   imports: [
     CommonModule,
-    FormsModule
+    FormsModule,
+    NgbModule
   ],
   providers: [
     UploadService

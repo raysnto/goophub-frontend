@@ -35,6 +35,10 @@ export class UploadComponent implements OnInit {
   ngOnInit() {
   }
 
+  search() {
+    console.log("Buscando");
+  }
+
   onAtomicFileChange(event){
     this.atomicFileUpload = event.target.files;
     console.log(event);

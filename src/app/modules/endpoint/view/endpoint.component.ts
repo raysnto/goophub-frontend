@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import 'codemirror/mode/javascript/javascript';
 import 'codemirror/mode/sparql/sparql'
+
 import { EndpointService } from '../controller/endpoint.service';
 
 @Component({
