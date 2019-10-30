@@ -57,9 +57,21 @@ html, body {
 }
 
 .border-color-green {
-    border-color: #5BC491
+    border-color: #5BC491;
 }
 
 .google-translate-color {
- background: #AEE4FC
+ background: #AEE4FC;
+}
+
+.cm-s-dracula.CodeMirror, .cm-s-dracula .CodeMirror-gutters {
+    background-color: #251D35 !important;
+}
+
+.nav-link {
+    color: #495057 !important;
+}
+
+.nav-link.active {
+    color: #5BC491 !important;
 }
