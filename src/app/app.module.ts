@@ -48,7 +48,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     UploadModule,
     EndpointModule,
     BrowserAnimationsModule,
-    //MatTooltipModule
+    MatTooltipModule
     
   ],
   providers: [
