@@ -1,71 +1,102 @@
-<div class="container">
-    <h1 class="display-1 text-center font-green mb-10 mt-20">GoopHub</h1>
-    <form class="form-group">
-        <input class="form-control" [(ngModel)]="query" type="search" placeholder="Search for Goops..." name="query">
-        <div class="search-buttons text-center mt-2" id="search-buttons">
-            <button type="button" class="btn btn-outline-success mr-3" (click)="search()">Search</button>
-            <button type="button" class="btn btn-outline-dark" (click)="advancedSearch()">Advanced Search</button>
+<div class="wrapper">
+    <!-- Sidebar -->
+    <nav *ngIf="filters" id="sidebar" class="shadow-bar">
+        <a class="corner mt-2" (click)="closeFilter()" ><fa-icon [icon]="faArrowLeft"></fa-icon></a>
+        <div class="sidebar-header text-center">
+            <h3>Filters</h3>
         </div>
-    </form>
+        
 
-    <div *ngIf="emptyQuery" class="mb-10 mt-50">
-        <div class="alert alert-warning" role="alert">
-            Your search - <strong>{{ query }}</strong> - did not match any goop.
-            <button type="button" class="close" aria-label="Close" (click)="closeAlert()">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    </div>
-
-    <div *ngIf="isValid" class="card-deck mb-10 mt-50">
-        <div *ngFor="let item of result.goops">
-            <div class="card mb-3 max-w-18 shadow p-3 mb-5 bg-white rounded goop-card">
-                <div class="card-header bg-white text-center">{{ item.type }}</div>
-                <div class="card-body text-dark text-center">
-                    <h5 class="card-title">{{ item.name }}</h5>
-                </div>
-                <div class="btn-group-sm text-center mb-2">
-                    <button type="button" class="btn btn-sm btn-outline-success mr-2"
-                        (click)="open(content, item.iri)">Show</button>
-                    <button type="button" class="btn btn-sm btn-outline-success">Download</button>
+        <div class="">
+            <div class="form-row col-md-12">
+                <label class="font-weight-bold" for="validIRI" >% of valid IRIs:</label>
+                <input type="range" class="custom-range" min="0" max="100" step="20" id="validIRI">
+            </div>
+            <div class="form-row col-md-12 mt-3">
+                <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input" id="versionMetadata">
+                    <label class="custom-control-label" for="versionMetadata">Has Version's Metadata</label>
                 </div>
             </div>
+            <div class="form-row col-md-12 mt-3">
+                <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input" id="owlProfile">
+                    <label class="custom-control-label" for="owlProfile">Violates de OWL DL Profile</label>
+                </div>
+            </div>
+            <div class="form-row col-md-12 mt-3">
+                <label class="font-weight-bold" for="documentation">% of documentation:</label>
+                <input type="range" class="custom-range" min="0" max="100" step="20" id="documentation">
+            </div>
+            <div class="form-row col-md-12 mt-3">
+                <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input" id="upperOntologies">
+                    <label class="custom-control-label " for="upperOntologies">Imports Foundational Ontologies</label>
+                </div>
+            </div>
+            <div class="form-row col-md-12 mt-3">
+                <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input" id="languages">
+                    <label class="custom-control-label" for="languages">Described in more than one language</label>
+                </div>
+            </div>
+            <div class="form-row col-md-12 mt-3">
+                <label class="font-weight-bold" for="clarity">% of Clarity:</label>
+                <input type="range" class="custom-range" min="0" max="100" step="20" id="clarity">
+            </div>
+            <div class="form-row col-md-12 mt-3">
+                <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input" id="consistent">
+                    <label class="custom-control-label" for="consistent">Is Consistent</label>
+                </div>
+            </div>
+            <div class="form-row col-md-12 mt-3">
+                <button type="button" class="btn btn-outline-success mr-3 apply" (click)="applyFilter()">Apply</button>
+            </div>
         </div>
-
+    </nav>
+    <div id="content" class="container">
+        <h1 class="display-1 text-center font-green mb-10 mt-20">GoopHub</h1>
+        <form class="form-group">
+            <div class="col-auto">
+                <div class="input-group mb-2">
+                  <input class="form-control" [(ngModel)]="query" type="search" placeholder="Search for Goops..." name="query">
+                </div>
+            </div>    
+            <div class="search-buttons text-center mt-2" id="search-buttons">
+                <button type="button" class="btn btn-outline-success mr-3" (click)="search()">Search</button>
+                <a class="btn btn-outline-dark" (click)="advancedSearch()">Advanced Search</a>
+            </div>
+        </form>
+    
+        <div *ngIf="emptyQuery" class="mb-10 mt-50">
+            <div class="alert alert-warning" role="alert">
+                Your search - <strong>{{ query }}</strong> - did not match any goop.
+                <button type="button" class="close" aria-label="Close" (click)="closeAlert()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+    
+        <div  class="card-deck mb-10 mt-50">
+            <div *ngFor="let item of result?.goops">
+                <div class="card mb-3 max-w-18 shadow p-3 mb-5 bg-white rounded goop-card">
+                    <div class="card-header bg-white text-center">{{ item.type }}</div>
+                    <div class="card-body text-dark text-center">
+                        <h5 class="card-title">{{ item.name }}</h5>
+                    </div>
+                    <div class="btn-group-sm text-center mb-2">
+                        <button type="button" class="btn btn-sm btn-outline-success mr-2"
+                            (click)="navigate2details(item)">Show</button>
+                        <button type="button" class="btn btn-sm btn-outline-success"
+                            (click)="download(item)">Download</button>
+                    </div>
+                </div>
+            </div>
+    
+        </div>
     </div>
-    <!-- Modal -->
-    <ng-template #content let-modal>
-        <div class="modal-header">
-            <h4 class="modal-title" id="modal-basic-title">Goop Details</h4>
-            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="modal-body">
-            {{ goopDetails.classes ? goopDetails.classes : "" }}
-            <br />
-            {{ goopDetails.properties ? goopDetails.properties : "" }}
-            <!--
-            <table class="table table-striped">
-                <thead>
-                    <tr>Classes</tr>
-                    <tr>Object Properties</tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let item of goopDetails.classes; let i = index">
-                        <td> {{ item }} </td>
-                        <td *ngIf="goopDetails.properties[i]"> {{ item }} </td>
-                    </tr>
-                </tbody>
-            </table>
-            -->
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">View model</button>
-        </div>
-    </ng-template>
 </div>
-
 <div class="footer">
     <div class="text-center">
         Copyright © 2019

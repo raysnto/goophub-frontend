@@ -13,8 +13,6 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { AppRoutingModule } from './app-routing.module';
 
-import {MatTooltipModule} from '@angular/material/tooltip';
-
 /* Import dos componentes */
 import { AppComponent } from './app.component';
 import { Error404Component } from './pages/error404/error404.component';
@@ -27,7 +25,8 @@ import { SearchModule } from './modules/search/search.module';
 import { UploadModule } from './modules/upload/upload.module';
 import { EndpointModule } from './modules/endpoint/endpoint.module';
 import { AboutComponent } from './pages/about/about.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DetailsModule } from './modules/details/details.module';
+import { DetailsService } from './modules/details/controller/details.service';
 
 
 @NgModule({
@@ -47,12 +46,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     SearchModule,
     UploadModule,
     EndpointModule,
-    BrowserAnimationsModule,
-    MatTooltipModule
-    
+    DetailsModule
   ],
   providers: [
-    SearchService
+    SearchService,
+    DetailsService
   ],
   bootstrap: [AppComponent]
 })

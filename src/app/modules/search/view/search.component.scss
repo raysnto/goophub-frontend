@@ -1,3 +1,22 @@
+.wrapper {
+    display: flex;
+    width: 100%;
+    align-items: stretch;
+}
+
+.shadow-bar {
+    height: 100vh;
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+
+}
+
+.apply {
+    margin-left: 30%;
+}
+.corner {
+    margin-left: 90%;
+}
+
 a:hover {
     color: #5BC491;
 }
@@ -27,4 +46,27 @@ a:hover {
 .model-content {
     white-space: pre-wrap;
     overflow: auto;
+}
+
+.modal-element {
+    width: 500px;
+}
+
+.custom-control-input:checked~.custom-control-label::before {
+    color: #fff;
+    border-color: #5bc491;
+    background-color: #5BC491;
+}
+.custom-range {
+  
+    &::-webkit-slider-thumb {
+      appearance: none;
+      background-color: #5BC491; //botao do slider
+    }
+    
+    //barra do slider
+    &::-webkit-slider-runnable-track {
+      color: transparent; // Why?
+      border-color: transparent;
+    } 
 }

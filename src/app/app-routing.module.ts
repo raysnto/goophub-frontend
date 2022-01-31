@@ -7,6 +7,7 @@ import { Error404Component } from './pages/error404/error404.component';
 import { UploadComponent } from './modules/upload/view/upload.component';
 import { EndpointComponent } from './modules/endpoint/view/endpoint.component';
 import { SearchComponent } from './modules/search/view/search.component';
+import { DetailsComponent } from './modules/details/view/details.component';
 
 
 const routes: Routes = [
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: 'upload', component: UploadComponent },
   { path: 'endpoint', component: EndpointComponent },
   { path: 'search', component: SearchComponent },
+  { path: 'details', component: DetailsComponent },
 
   { path: '**', component: Error404Component }
 ];

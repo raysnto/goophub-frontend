@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { UploadService } from '../controller/upload.service';
+import { Subject } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-upload',
@@ -12,6 +14,7 @@ export class UploadComponent implements OnInit {
 
   // Atomic Fields
   atomicFileUpload: any[];
+  atomicImageUpload: any[];
   atomicName: string;
   atomicEmail: string;
   atomicOrganization: string;
@@ -20,29 +23,114 @@ export class UploadComponent implements OnInit {
 
   // Complex Fields
   complexFileUpload: any[];
+  complexImageUpload: any[];
   complexName: string;
   complexEmail: string;
   complexOrganization: string;
   complexRole: string;
   complexGoal: string;
   complexDecomposition: any;
-  complexGoalList: [];
+  complexGoalList: any[];
+  queryGoal: string;
+
+  // Aux variable
+  loading: boolean = false;
+  success: boolean = false;
+  result: any;
+  goopList: any;
 
   constructor(
-    private uploadService: UploadService
+    private uploadService: UploadService,
+    private ref: ChangeDetectorRef
   ) { }
 
-  ngOnInit() {
+  private _success = new Subject<string>();
+  private _warning = new Subject<string>();
+
+  staticAlertClosed = false;
+  successMessage = '';
+  warningMessage = '';
+
+  ngOnInit(): void {
+
+     // Atomic Fields
+    this.atomicFileUpload = undefined;
+    this.atomicImageUpload = undefined;
+    this.atomicName = "";
+    this.atomicEmail = "";
+    this.atomicOrganization = "";
+    this.atomicRole = "";
+    this.atomicGoal = "";
+
+    // Complex Fields
+    this.complexFileUpload = undefined;
+    this.complexImageUpload = undefined;
+    this.complexName = "";
+    this.complexEmail = "";
+    this.complexOrganization = "";
+    this.complexRole = "";
+    this.complexGoal = "";
+    this.complexDecomposition = "";
+    this.complexGoalList = [];
+    this.queryGoal = "";
+
+    setTimeout(() => this.staticAlertClosed = true, 20000);
+
+    this._success.subscribe(message => this.successMessage = message);
+    this._success.pipe(
+      debounceTime(5000)
+    ).subscribe(() => this.successMessage = '');
+    this._warning.subscribe(message => this.warningMessage = message);
+    this._warning.pipe(
+      debounceTime(5000)
+    ).subscribe(() => this.warningMessage = '');
+  }
+
+  public changeSuccessMessage(type: string) {
+    if(type == "warning"){
+      this._warning.next(`Missing fragment file.`);
+    }
+    if(type == "success"){
+      this._success.next(`Fragment upload finished withou error.`);
+    }
   }
 
   search() {
-    console.log("Buscando");
+    console.log(this.queryGoal);
+    this.uploadService.complexSearch(this.queryGoal).subscribe(result => {
+      console.log(result);
+      this.goopList = result;
+    });
+  }
+
+  addGoal(goal) {
+    goal.name = goal.name.trim().replaceAll("\"", "");
+    this.complexGoalList.push(goal);
+    this.queryGoal = "";
+    console.log(this.complexGoalList);
+  }
+
+  removeGoal(goal) {
+    this.complexGoalList.splice(this.complexGoalList.indexOf(goal), 1);
+    console.log(this.complexGoalList);
+  }
+
+  onAtomicImageChange(event){
+    this.atomicImageUpload = event.target.files;
+    console.log(event);
+    console.log(this.atomicImageUpload);
   }
 
   onAtomicFileChange(event){
     this.atomicFileUpload = event.target.files;
     console.log(event);
     console.log(this.atomicFileUpload);
+  }
+
+  onComplexImageChange(event){
+    this.complexImageUpload = event.target.files;
+    console.log(event);
+    console.log(this.complexImageUpload);
   }
 
   onComplexFileChange(event){
@@ -52,6 +140,8 @@ export class UploadComponent implements OnInit {
   }
 
   atomicUpload() {
+    this.loading = true;
+    this.ref.markForCheck();
     let form = new FormData();
     form.append('name', this.atomicName);
     form.append('email', this.atomicEmail);
@@ -62,16 +152,33 @@ export class UploadComponent implements OnInit {
       form.append('file', this.atomicFileUpload[0], this.atomicFileUpload[0].name);
     }
     else {
-      alert("Missing Atomic Goop Fragment");
+      this.changeSuccessMessage("warning");
+      this.loading = false;
+      this.ref.markForCheck();      
       return;
     }    
-    this.uploadService.atomicUpload(form).subscribe(result => {
-      console.log(result);
-    })
 
+    if (this.atomicImageUpload !== undefined) {
+      form.append('image', this.atomicImageUpload[0], this.atomicImageUpload[0].name);
+    }
+    
+    this.uploadService.atomicUpload(form).subscribe(result => {
+      this.result = result;
+      console.log(this.result);
+      if('info' in this.result) {
+        this.changeSuccessMessage("success");
+      }
+      if('error' in this.result) {
+        this.changeSuccessMessage("warning");
+      }
+      this.ngOnInit();
+    })
+    
   }
 
   complexUpload() {
+    this.loading = true
+    this.ref.markForCheck();
     let form = new FormData();
     form.append('name', this.complexName);
     form.append('email', this.complexEmail);
@@ -79,19 +186,35 @@ export class UploadComponent implements OnInit {
     form.append('role', this.complexRole);
     form.append('decomposition', this.complexDecomposition);
     form.append('goal', this.complexGoal);
-    form.append('atomic[]', JSON.stringify(this.complexGoalList));
-    console.log(this.complexFileUpload.length);
+    form.append('atomics', JSON.stringify(this.complexGoalList));
     if (this.complexFileUpload !== undefined) {
       form.append('file', this.complexFileUpload[0], this.complexFileUpload[0].name);
     }
     else {
-      alert("Missing Complex Goop Fragment");
+      this.changeSuccessMessage("warning");
+      this.loading = false;
+      this.ref.markForCheck();
       return;
     }
-    this.uploadService.complexUpload(form).subscribe(result => {
-      console.log(result);
-    })
 
+    if (this.complexImageUpload !== undefined) {
+      form.append('image', this.complexImageUpload[0], this.complexImageUpload[0].name);
+    }
+    this.uploadService.complexUpload(form).subscribe(result => {
+      this.result = result;
+      console.log(this.result);
+      if('info' in this.result) {
+        this.changeSuccessMessage("success");
+      }
+      if('error' in this.result) {
+        this.changeSuccessMessage("warning");
+      }
+      this.ngOnInit();
+    })
+    this.loading = false;
+    this.success = false;
+    this.ref.markForCheck();
+    
   }
 
 }

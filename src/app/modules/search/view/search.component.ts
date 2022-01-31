@@ -1,8 +1,11 @@
 import {Router} from "@angular/router"
 import { Component, OnInit } from '@angular/core';
 
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SearchService } from '../controller/search.service';
+
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+
 
 @Component({
   selector: 'app-search',
@@ -14,9 +17,11 @@ export class SearchComponent implements OnInit {
   closeResult: string;
   isValid = false;
   emptyQuery = false;
+  filters = false;
   result: any;
   goopDetails: any;
   query:string;
+  faArrowLeft = faArrowLeft;
 
   constructor(
     private modalService: NgbModal,
@@ -39,34 +44,47 @@ export class SearchComponent implements OnInit {
   }
   
   search() {
-    console.log(this.query);
+    console.log("request -> function 'search':" + this.query);
     this.searchService.searchGoop(this.query).subscribe((data)=>{
+      if(!data) {
+        this.emptyQuery = true
+        return;
+      }
       this.result = data;
+      console.log("response -> function 'search':");
       console.log(this.result);
       this.result.goops.length > 0 ? this.isValid = true : this.emptyQuery = true;
     });
+    //this.result = this.searchService.searchGoopMock(this.query);
+    this.filters = false
   }
 
-  open(content, iri) {
-    this.searchService.searchEntities(iri).subscribe(result => {
-      this.goopDetails = result;
-      console.log(result);
-    })
-    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
+  navigate2details(goop:any) {
+    this.router.navigateByUrl('/details', { state:  goop });
   }
 
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return  `with: ${reason}`;
+  closeFilter() {
+    if (this.filters) {
+      this.filters = false
     }
+    else {
+      this.filters = true
+    }
+  }
+
+  applyFilter() {
+
+  }
+
+  download(goop:any) {
+    this.searchService.downloadGoop(goop.uri).subscribe(data => {
+      const blob = new Blob([data as BlobPart], { type: 'html/xml' });
+      const url= window.URL.createObjectURL(blob);
+      var anchor = document.createElement("a");
+      anchor.download = goop.name + ".owl";
+      anchor.href = url;
+      anchor.click();
+    });
   }
 
 }

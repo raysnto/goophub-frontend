@@ -1,0 +1,143 @@
+<div class="jumbotron text-center bg-purple br-0" id="jumbotron">
+    <div>
+        <h1 class="jumbotron-heading font-green"> {{getGoopName()}}</h1>
+        <p class="lead font-white"> {{getGoopType()}} Goop</p>
+    </div>
+    <hr class="my-4 bg-white">
+    <div class="font-white">
+        <p class="lead font-white"> {{ getGoopURI() }}</p>
+    </div>
+</div>
+
+<div class="container">
+    <!--
+    <h1 class="jumbotron-heading font-green text-center">Characteristics</h1>
+    <div  class="card-deck">
+        <div class="card mb-3 max-w-18 shadow p-3 mb-5 bg-white rounded goop-card">
+            <div class="card-body text-dark text-left">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <label class="font-weight-bold">Documentation:</label> {{ this.goop.characteristics.documentation }}% 
+                        <fa-icon class="badge badge-light badge-pill" [icon]="faBook"></fa-icon>
+                    </li>
+                    <li class="list-group-item">
+                        <label class="font-weight-bold">Version Control:</label> {{ this.goop.characteristics.hasVersion }}
+                        <fa-icon class="badge badge-light badge-pill" [icon]="faCodeBranch"></fa-icon>
+                    </li>
+                    <li class="list-group-item">
+                        <label class="font-weight-bold">Is Consistent:</label> {{ this.goop.characteristics.consistent }}
+                        <fa-icon class="badge badge-light badge-pill" [icon]="faCheckDouble"></fa-icon>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="card mb-3 max-w-18 shadow p-3 mb-5 bg-white rounded goop-card">
+            <div class="card-header bg-white text-center font-weight-bold">Violates OWL Profile</div>
+            <div class="card-body text-dark text-left">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <label class="font-weight-bold">DL:</label> {{ this.goop.characteristics.owlProfile.DL }}
+                        <fa-icon *ngIf="this.goop.characteristics.owlProfile.DL" class="badge badge-light badge-pill" [icon]="faBan"></fa-icon>
+                        <fa-icon *ngIf="!this.goop.characteristics.owlProfile.DL" class="badge badge-light badge-pill" [icon]="faCheck"></fa-icon>
+                    </li>
+                    <li class="list-group-item">
+                        <label class="font-weight-bold">EL:</label> {{ this.goop.characteristics.owlProfile.EL }}
+                        <fa-icon *ngIf="this.goop.characteristics.owlProfile.EL" class="badge badge-light badge-pill" [icon]="faBan"></fa-icon>
+                        <fa-icon *ngIf="!this.goop.characteristics.owlProfile.EL" class="badge badge-light badge-pill" [icon]="faCheck"></fa-icon>
+                    </li>
+                    <li class="list-group-item">
+                        <label class="font-weight-bold">QL:</label> {{ this.goop.characteristics.owlProfile.QL }}
+                        <fa-icon *ngIf="this.goop.characteristics.owlProfile.QL" class="badge badge-light badge-pill" [icon]="faBan"></fa-icon>
+                        <fa-icon *ngIf="!this.goop.characteristics.owlProfile.QL" class="badge badge-light badge-pill" [icon]="faCheck"></fa-icon>
+                    </li>
+                    <li class="list-group-item">
+                        <label class="font-weight-bold">RL:</label> {{ this.goop.characteristics.owlProfile.RL }}
+                        <fa-icon *ngIf="this.goop.characteristics.owlProfile.RL" class="badge badge-light badge-pill" [icon]="faBan"></fa-icon>
+                        <fa-icon *ngIf="!this.goop.characteristics.owlProfile.RL" class="badge badge-light badge-pill" [icon]="faCheck"></fa-icon>
+                    </li>
+                    <li class="list-group-item">
+                        <label class="font-weight-bold">Full:</label> {{ this.goop.characteristics.owlProfile.Full }}
+                        <fa-icon *ngIf="this.goop.characteristics.owlProfile.Full" class="badge badge-light badge-pill" [icon]="faBan"></fa-icon>
+                        <fa-icon *ngIf="!this.goop.characteristics.owlProfile.Full" class="badge badge-light badge-pill" [icon]="faCheck"></fa-icon>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="card mb-3 max-w-18 shadow p-3 mb-5 bg-white rounded goop-card">
+            <div class="card-body text-dark text-left">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <label class="font-weight-bold">Use foundation ontologies:</label>
+                        <br>{{ this.goop.characteristics.foundationOntologies.hasImport }}
+                        <fa-icon class="badge badge-light badge-pill" [icon]="faArchway"></fa-icon>
+                    </li>
+                    <li class="list-group-item">
+                        <label class="font-weight-bold">Foundation ontologies usage:</label>
+                        <br>{{ this.goop.characteristics.foundationOntologies.percetange }} %
+                        <fa-icon class="badge badge-light badge-pill" [icon]="faArchway"></fa-icon>
+                    </li>
+                    <li class="list-group-item">
+                        <label class="font-weight-bold">Describe in more than one language:</label>
+                        <br>
+                        {{ this.goop.characteristics.language.oneOrMore }} 
+                        <fa-icon class="badge badge-light badge-pill" [icon]="faGlobe"></fa-icon>
+                    </li>
+                    <div *ngFor="let item of this.goop.characteristics.language.list">
+                        <li class="list-group-item">
+                            <label class="font-weight-bold">{{ item.name }}:</label> {{ item.value }} 
+                        </li>
+                    </div>
+
+                    <li class="list-group-item">
+                        <label class="font-weight-bold">Clarity:</label> {{ this.goop.characteristics.clarity }}
+                        <fa-icon class="badge badge-light badge-pill" [icon]="faCrosshairs"></fa-icon>
+                    </li>
+                </ul>
+            </div>
+            
+        </div>
+    </div>
+    -->
+    <hr class="my-4 bg-purple">
+    <div *ngIf=this.goop class="panel panel-default text-center">
+        <img *ngIf=checkGoopURL() class="images" [src]=getGoopURL() />
+        <h3 *ngIf=!checkGoopURL() class="jumbotron-heading font-purple">There is no image for this GOOP</h3>
+    </div>
+    <hr class="my-4 bg-purple">
+    <div class="row">
+    <div class="col-md-6" *ngIf="getGoopClasses()">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th class="text-center" scope="col">Class</th>
+                    <th class="text-center" scope="col">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let class of getGoopClasses(); index as i">
+                    <td>{{ class.name }}</td>
+                    <td class="text-center"> {{class.label}} </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-6" *ngIf="getGoopProperties()">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th class="text-center" scope="col">Object Property</th>
+                    <th class="text-center" scope="col">Domain</th>
+                    <th class="text-center" scope="col">Range</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let property of getGoopProperties(); index as i">
+                    <td>{{ property.name }}</td>
+                    <td class="text-center">{{ property.domain }}</td>
+                    <td class="text-center">{{ property.range }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>

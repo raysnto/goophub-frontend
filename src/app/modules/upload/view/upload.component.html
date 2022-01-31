@@ -57,9 +57,9 @@
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <label class="font-weight-bold" for="queryValue">Search goals to add:</label>
+                                <label class="font-weight-bold" for="queryGoal">Search goals to add:</label>
                                 <div class="input-group mb-4">
-                                    <input type="text" class="form-control" id="queryValue"
+                                    <input type="text" class="form-control" name="queryGoal" [(ngModel)]="queryGoal" id="queryGoal"
                                         placeholder="Search for goals" aria-label="Search for goals"
                                         aria-describedby="button-addon2">
                                     <div class="input-group-append">
@@ -72,7 +72,57 @@
                                 <div id="col-dep">
                                     <label class="font-weight-bold">Selected goals:</label>
                                     <strong></strong>
-                                    <div class="list-group" id="complex-list-added" role="tablist">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <div *ngIf=goopList>
+                                    <div>
+                                        <table style="margin-top: -8%;" class="table table-striped">
+                                            <thead>
+                                            <tr>
+                                                <th scope="col">#</th>
+                                                <th scope="col">Goal Name</th>
+                                                <th scope="col">Type</th>
+                                                <th scope="col">Action</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let goal of goopList?.goops; let i = index">
+                                                    <th scope="row">{{i+1}}</th>
+                                                    <td>{{goal.name}}</td>
+                                                    <td>{{goal.type}}</td>
+                                                    <td><button class="btn btn-outline-success text-center" type="button"
+                                                            (click)="addGoal(goal)">+</button></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <div *ngIf='complexGoalList.length > 0'>
+                                    <div>
+                                        <table style="margin-top: -15%;" class="table table-striped">
+                                            <thead>
+                                            <tr>
+                                                <th scope="col">#</th>
+                                                <th scope="col">Goal Name</th>
+                                                <th scope="col">Type</th>
+                                                <th scope="col">Action</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let goal of complexGoalList; let i = index">
+                                                    <th scope="row">{{i+1}}</th>
+                                                    <td>{{goal.name}}</td>
+                                                    <td>{{goal.type}}</td>
+                                                    <td><button class="btn btn-outline-danger text-center" type="button"
+                                                            (click)="removeGoal(goal)">-</button></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
@@ -87,8 +137,12 @@
                             </div>
                             <div class="form-group col-md-6">
                                     <label class="font-weight-bold" for="goalName">Select image file:</label>
-                                    <input (change)="onComplexFileChange($event)" type="file" id="complexFileUpload">
+                                    <input (change)="onComplexImageChange($event)" type="file" id="complexImageUpload">
                             </div>
+                        </div>
+                        <div class="loading-row">
+                            <ngb-alert *ngIf="successMessage" type="success" (close)="successMessage = ''">{{ successMessage }}</ngb-alert>
+                            <ngb-alert *ngIf="warningMessage" type="warning" (close)="warningMessage = ''">{{ warningMessage }}</ngb-alert>
                         </div>
                         <div class="text-center mt-50">
                             <p>
@@ -96,6 +150,7 @@
                                 (click)="complexUpload()">Upload fragment</button>  
                             </p>
                         </div>
+                        <div *ngIf="loading" style="margin-left: 47%;" class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>                        
                     </form>
                 </div>
             </ng-template>
@@ -148,8 +203,12 @@
                                 </div>
                                 <div class="form-group col-md-6">
                                         <label class="font-weight-bold" for="goalName">Select image file:</label>
-                                        <input (change)="onAtomicFileChange($event)" type="file" id="atomicFileUpload">
+                                        <input (change)="onAtomicImageChange($event)" type="file" id="atomicImageUpload">
                                 </div>
+                            </div>
+                            <div class="loading-row">
+                                <ngb-alert *ngIf="successMessage" type="success" (close)="successMessage = ''">{{ successMessage }}</ngb-alert>
+                                <ngb-alert *ngIf="warningMessage" type="warning" (close)="warningMessage = ''">{{ warningMessage }}</ngb-alert>
                             </div>
                             <div class="text-center mt-50">
                                 <p>
@@ -157,6 +216,7 @@
                                     (click)="atomicUpload()" id="atomic-upload">Upload fragment</button>  
                                 </p>
                             </div>
+                            <div *ngIf="loading" style="margin-left: 47%;" class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
                     </form>
                 </div>
             </ng-template>

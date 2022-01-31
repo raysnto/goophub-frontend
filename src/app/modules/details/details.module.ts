@@ -1,25 +1,24 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms'
-import { SearchComponent } from './view/search.component';
-import { SearchService } from './controller/search.service';
+import { DetailsComponent } from './view/details.component';
+import { DetailsService } from './controller/details.service';
 
 // FontAwesome
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
-
 @NgModule({
-  declarations: [SearchComponent],
+  declarations: [DetailsComponent],
   imports: [
     CommonModule,
     FormsModule,
     FontAwesomeModule
   ],
   exports: [
-    SearchComponent,
+    DetailsComponent,
   ],
   providers: [
-    SearchService,
+    DetailsService,
   ]
 })
-export class SearchModule { }
+export class DetailsModule { }

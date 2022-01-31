@@ -17,11 +17,8 @@ export class EndpointComponent implements OnInit {
   ) { }
 
   result: any;
-  result2: any = {
-    s: ["time", "date", "hour", "day", "month"],
-    p: ["class", "class", "class", "class", "class"]
-  };
-  queryKeys = Object.keys;
+  _object = Object;
+  queryKeys: Array<string>;
   isValid: boolean;
   query: string;
 
@@ -32,6 +29,10 @@ export class EndpointComponent implements OnInit {
     console.log(this.query);
     this.endpointService.search(this.query).subscribe( data => {
       this.result = data;
+      this.result = this.result.results;
+      console.log(this.result);
+      this.queryKeys = Object.keys(this.result[0]);
+      console.log(this.queryKeys)
       this.isValid = true;
     });
   }

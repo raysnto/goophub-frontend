@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
+import { environment } from '../../../../environments/environment.prod';
 
 @Injectable({
   providedIn: 'root'
@@ -10,10 +11,8 @@ export class EndpointService {
     private http: HttpClient,
   ) { }
 
-  baseURL = "http://200.137.66.31:8080/search/sparql"
-
   search(query: string) {
     let params = new HttpParams().set('query', encodeURIComponent(query));
-    return this.http.get(this.baseURL, { params: params });
+    return this.http.get(`${environment.baseUrl}/search/advanced`, { params: params });
   }
 }
