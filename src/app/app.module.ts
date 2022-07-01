@@ -27,6 +27,7 @@ import { EndpointModule } from './modules/endpoint/endpoint.module';
 import { AboutComponent } from './pages/about/about.component';
 import { DetailsModule } from './modules/details/details.module';
 import { DetailsService } from './modules/details/controller/details.service';
+import { NovoUploadModule } from './modules/novo-upload/novo-upload.module';
 
 
 @NgModule({
@@ -46,7 +47,8 @@ import { DetailsService } from './modules/details/controller/details.service';
     SearchModule,
     UploadModule,
     EndpointModule,
-    DetailsModule
+    DetailsModule,
+    NovoUploadModule
   ],
   providers: [
     SearchService,

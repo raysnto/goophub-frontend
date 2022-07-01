@@ -28,8 +28,10 @@
     "bootstrap": "^4.3.1",
     "codemirror": "^5.48.4",
     "express": "^4.17.1",
+    "ng": "^0.0.0",
     "path": "^0.12.7",
     "rxjs": "~6.4.0",
+    "serve": "^13.0.2",
     "tslib": "^1.10.0",
     "typescript": "~3.5.3",
     "zone.js": "~0.9.1"

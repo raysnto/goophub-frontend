@@ -8,6 +8,7 @@ import { UploadComponent } from './modules/upload/view/upload.component';
 import { EndpointComponent } from './modules/endpoint/view/endpoint.component';
 import { SearchComponent } from './modules/search/view/search.component';
 import { DetailsComponent } from './modules/details/view/details.component';
+import { NovoUploadComponent } from './modules/novo-upload/view/novo-upload.component';
 
 
 const routes: Routes = [
@@ -16,6 +17,7 @@ const routes: Routes = [
   { path: 'endpoint', component: EndpointComponent },
   { path: 'search', component: SearchComponent },
   { path: 'details', component: DetailsComponent },
+  { path: 'novo-upload', component: NovoUploadComponent },
 
   { path: '**', component: Error404Component }
 ];
