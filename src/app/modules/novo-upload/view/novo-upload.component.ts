@@ -20,6 +20,9 @@ export class NovoUploadComponent implements OnInit {
   atomicOrganization: string;
   atomicRole: string;
   atomicGoal: string;
+  atomicActor: string;
+  atomicVerb: any;
+  atomicSubstantive: string;
 
   // Complex Fields
   complexFileUpload: any[];
@@ -61,6 +64,9 @@ export class NovoUploadComponent implements OnInit {
     this.atomicOrganization = "";
     this.atomicRole = "";
     this.atomicGoal = "";
+    this.atomicActor = "";
+    this.atomicVerb = "";
+    this.atomicSubstantive = "";
 
     // Complex Fields
     this.complexFileUpload = undefined;
@@ -147,7 +153,9 @@ export class NovoUploadComponent implements OnInit {
     form.append('email', this.atomicEmail);
     form.append('organization', this.atomicOrganization);
     form.append('role', this.atomicRole);
-    form.append('goal', this.atomicGoal);
+    //form.append('goal', this.atomicGoal);
+    form.append('goal', this.atomicVerb + " " + this.atomicSubstantive);
+    //form.append('actor', this.atomicActor);
     if (this.atomicFileUpload !== undefined) {
       form.append('file', this.atomicFileUpload[0], this.atomicFileUpload[0].name);
     }
