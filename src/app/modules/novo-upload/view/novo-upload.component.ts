@@ -97,7 +97,7 @@ export class NovoUploadComponent implements OnInit {
       this._warning.next(`Missing fragment file.`);
     }
     if(type == "success"){
-      this._success.next(`Fragment upload finished withou error.`);
+      this._success.next(`Fragment upload finished without error.`);
     }
   }
 
@@ -154,7 +154,10 @@ export class NovoUploadComponent implements OnInit {
     form.append('organization', this.atomicOrganization);
     form.append('role', this.atomicRole);
     //form.append('goal', this.atomicGoal);
-    form.append('goal', this.atomicVerb + " " + this.atomicSubstantive);
+    console.log(this.atomicGoal);
+    console.log(this.atomicVerb);
+    console.log(this.atomicSubstantive);
+    form.append('goal', this.atomicActor + ": " + this.atomicVerb + " " + this.atomicSubstantive);
     //form.append('actor', this.atomicActor);
     if (this.atomicFileUpload !== undefined) {
       form.append('file', this.atomicFileUpload[0], this.atomicFileUpload[0].name);

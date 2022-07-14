@@ -91,7 +91,7 @@ export class UploadComponent implements OnInit {
       this._warning.next(`Missing fragment file.`);
     }
     if(type == "success"){
-      this._success.next(`Fragment upload finished withou error.`);
+      this._success.next(`Fragment upload finished without error.`);
     }
   }
 
