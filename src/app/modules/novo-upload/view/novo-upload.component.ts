@@ -35,6 +35,9 @@ export class NovoUploadComponent implements OnInit {
   complexDecomposition: any;
   complexGoalList: any[];
   queryGoal: string;
+  complexActor: string;
+  complexVerb: any;
+  complexSubstantive: string;
 
   // Aux variable
   loading: boolean = false;
@@ -79,6 +82,9 @@ export class NovoUploadComponent implements OnInit {
     this.complexDecomposition = "";
     this.complexGoalList = [];
     this.queryGoal = "";
+    this.complexActor = "";
+    this.complexVerb = "";
+    this.complexSubstantive = "";
 
     setTimeout(() => this.staticAlertClosed = true, 20000);
 
@@ -154,11 +160,10 @@ export class NovoUploadComponent implements OnInit {
     form.append('organization', this.atomicOrganization);
     form.append('role', this.atomicRole);
     //form.append('goal', this.atomicGoal);
+    form.append('goal', this.atomicActor + ": " + this.atomicVerb + " " + this.atomicSubstantive);
     console.log(this.atomicGoal);
     console.log(this.atomicVerb);
     console.log(this.atomicSubstantive);
-    form.append('goal', this.atomicActor + ": " + this.atomicVerb + " " + this.atomicSubstantive);
-    //form.append('actor', this.atomicActor);
     if (this.atomicFileUpload !== undefined) {
       form.append('file', this.atomicFileUpload[0], this.atomicFileUpload[0].name);
     }
@@ -196,7 +201,8 @@ export class NovoUploadComponent implements OnInit {
     form.append('organization', this.complexOrganization);
     form.append('role', this.complexRole);
     form.append('decomposition', this.complexDecomposition);
-    form.append('goal', this.complexGoal);
+    //form.append('goal', this.complexGoal);
+    form.append('goal', this.complexActor + ": " + this.complexVerb + " " + this.complexSubstantive);
     form.append('atomics', JSON.stringify(this.complexGoalList));
     if (this.complexFileUpload !== undefined) {
       form.append('file', this.complexFileUpload[0], this.complexFileUpload[0].name);
